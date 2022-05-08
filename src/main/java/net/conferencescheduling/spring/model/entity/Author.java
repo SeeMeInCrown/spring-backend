@@ -1,23 +1,24 @@
 package net.conferencescheduling.spring.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-@Entity
 @Data
-@Table(name="presenter")
-public class Presenter {
-
+@Entity
+@Table(name="author")
+public class Author {
     @Id
-    @Column(name = "id")
-    //@SequenceGenerator(name="presenter_seq_gen",sequenceName = "presenter_gen",initialValue = 100,allocationSize = 1)
+    @SequenceGenerator(name="seq_gen",sequenceName = "seq_gen",initialValue = 100,allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "seq_gen")
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "name")
@@ -27,6 +28,8 @@ public class Presenter {
     private String surname;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "presenter")
-    private Set<Paper> papers = new HashSet<>();
+    @ManyToMany(mappedBy = "authors")
+    private Set<Paper> papers=new HashSet<>();
+
+
 }

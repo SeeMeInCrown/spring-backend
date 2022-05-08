@@ -1,11 +1,12 @@
 package net.conferencescheduling.spring.model.dto;
 
 import lombok.Data;
-
-import javax.persistence.Column;
+import net.conferencescheduling.spring.model.entity.Constraint;
 
 @Data
 public class RoomDto {
-    private int roomNumber;
-    private int roomCapacity;
+
+    private int roomNo;
+    private int roomCount;
+    private Constraint constraint;
 }
