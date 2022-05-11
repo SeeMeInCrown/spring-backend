@@ -1,7 +1,10 @@
 package net.conferencescheduling.spring.model.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -26,27 +29,28 @@ public class Constraint {
     @Column(name = "break_count")
     private int breakCount;
 
-    @Column(name = "start_date")
-    @Temporal(TemporalType.DATE)
-    private Date startDate;
+    @Column(name = "start_date", columnDefinition = "DATE")
+    private LocalDate startDate;
 
-    @Column(name = "end_date")
-    @Temporal(TemporalType.DATE)
-    private Date endDate;
+    @Column(name = "end_date", columnDefinition = "DATE")
+    private LocalDate endDate;
 
-    @Column(name = "break_time")
-    private int breakTime;
+    @Column(name = "break_time", columnDefinition = "TIME")
+    private LocalTime breakTime;
 
+    @JsonManagedReference
     @JsonIgnore
-    @OneToMany(mappedBy = "constraint")
+    @OneToMany(mappedBy = "constraint",cascade = CascadeType.ALL)
     private Set<Paper> papers = new HashSet<>();
 
+    @JsonManagedReference
     @JsonIgnore
-    @OneToMany(mappedBy = "room")
+    @OneToMany(mappedBy = "constraint",cascade = CascadeType.ALL)
     private Set<Room> rooms = new HashSet<>();
 
+    @JsonManagedReference
     @JsonIgnore
-    @OneToMany(mappedBy = "session")
+    @OneToMany(mappedBy = "constraint",cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Session> sessions = new HashSet<>();
 
 

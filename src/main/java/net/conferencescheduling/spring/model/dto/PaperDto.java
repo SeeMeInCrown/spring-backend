@@ -1,5 +1,6 @@
 package net.conferencescheduling.spring.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import net.conferencescheduling.spring.model.entity.Author;
 import net.conferencescheduling.spring.model.entity.Constraint;
@@ -11,9 +12,9 @@ import java.util.Set;
 @Data
 public class PaperDto {
 
-    private Set<Author> authors=new HashSet<>();
-    private Constraint constraint;
-    private Presenter presenter;
+    private Set<AuthorDto> authors=new HashSet<>();
+    private ConstraintDto constraint;
+    private PresenterDto presenter;
     private String title;
     private String keyword;
 }

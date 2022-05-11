@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:8080")
 @RequestMapping("/author")
 public class AuthorController {
     @Autowired
@@ -53,7 +54,7 @@ public class AuthorController {
         // convert entity to DTO
         AuthorDto authorResponse = modelMapper.map(author, AuthorDto.class);
 
-        return new ResponseEntity<AuthorDto>(authorResponse, HttpStatus.CREATED);
+        return new ResponseEntity<>(authorResponse, HttpStatus.CREATED);
     }
 
     // change the request for DTO

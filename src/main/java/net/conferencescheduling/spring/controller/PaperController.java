@@ -1,11 +1,7 @@
 package net.conferencescheduling.spring.controller;
 
-import net.conferencescheduling.spring.model.dto.AuthorDto;
-import net.conferencescheduling.spring.model.dto.ConstraintDto;
 import net.conferencescheduling.spring.model.dto.PaperDto;
-import net.conferencescheduling.spring.model.entity.Author;
 import net.conferencescheduling.spring.model.entity.Paper;
-import net.conferencescheduling.spring.service.AuthorService;
 import net.conferencescheduling.spring.service.PaperService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.*;
@@ -16,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:8080")
 @RequestMapping("/paper")
 public class PaperController {
     @Autowired
@@ -46,8 +43,10 @@ public class PaperController {
         return ResponseEntity.ok().body(paperResponse);
     }
 
+
     @PostMapping("/create")
     public ResponseEntity<PaperDto> createPaper(@RequestBody PaperDto paperDto) {
+
 
         // convert DTO to entity
         Paper paperRequest = modelMapper.map(paperDto, Paper.class);
@@ -57,7 +56,7 @@ public class PaperController {
         // convert entity to DTO
         PaperDto paperResponse = modelMapper.map(paper, PaperDto.class);
 
-        return new ResponseEntity<PaperDto>(paperResponse, HttpStatus.CREATED);
+        return new ResponseEntity<>(paperResponse, HttpStatus.CREATED);
     }
 
     // change the request for DTO

@@ -1,6 +1,7 @@
 package net.conferencescheduling.spring.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,8 +28,9 @@ public class Author {
     @Column(name = "surname")
     private String surname;
 
+    @JsonManagedReference
     @JsonIgnore
-    @ManyToMany(mappedBy = "authors")
+    @ManyToMany(mappedBy = "authors",cascade = CascadeType.ALL)
     private Set<Paper> papers=new HashSet<>();
 
 

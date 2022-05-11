@@ -1,6 +1,7 @@
 package net.conferencescheduling.spring.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import javax.persistence.*;
 import java.util.HashSet;
@@ -26,7 +27,8 @@ public class Presenter {
     @Column(name = "surname")
     private String surname;
 
+    @JsonManagedReference
     @JsonIgnore
-    @OneToMany(mappedBy = "presenter")
+    @OneToMany(mappedBy = "presenter",cascade = CascadeType.ALL)
     private Set<Paper> papers = new HashSet<>();
 }

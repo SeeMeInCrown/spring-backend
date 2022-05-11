@@ -1,4 +1,5 @@
 package net.conferencescheduling.spring.model.entity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import javax.persistence.*;
 import java.util.HashSet;
@@ -19,16 +20,19 @@ public class Paper {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "seq_gen")
     private Long id;
 
-    @ManyToMany
+    @JsonBackReference
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "paper_author", joinColumns = @JoinColumn(name = "paper_id"),inverseJoinColumns = @JoinColumn(name = "author_id"))
     private Set<Author> authors=new HashSet<>();
 
-    @ManyToOne
-    @JoinColumn(name = "const_id", nullable = false)
+    @JsonBackReference
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "const_id")
     Constraint constraint;
 
-    @ManyToOne
-    @JoinColumn(name = "presenter_id", nullable = false)
+    @JsonBackReference
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "presenter_id")
     Presenter presenter;
 
     @Column(name = "title")

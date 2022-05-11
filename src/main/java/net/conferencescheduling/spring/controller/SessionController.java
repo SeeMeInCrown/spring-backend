@@ -17,7 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/room")
+@CrossOrigin(origins = "http://localhost:8080")
+@RequestMapping("/session")
 public class SessionController {
     @Autowired
     private ModelMapper modelMapper;
@@ -58,7 +59,7 @@ public class SessionController {
         // convert entity to DTO
         SessionDto sessionResponse = modelMapper.map(session, SessionDto.class);
 
-        return new ResponseEntity<SessionDto>(sessionResponse, HttpStatus.CREATED);
+        return new ResponseEntity<>(sessionResponse, HttpStatus.CREATED);
     }
 
     // change the request for DTO

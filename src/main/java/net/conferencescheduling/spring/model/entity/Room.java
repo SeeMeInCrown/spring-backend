@@ -1,5 +1,6 @@
 package net.conferencescheduling.spring.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,8 +25,9 @@ public class Room {
     @Column(name = "room_count")
     private int roomCount;
 
-    @ManyToOne
-    @JoinColumn(name = "const_id", nullable = false)
+    @JsonBackReference
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "const_id")
     Constraint constraint;
 
     public void assignConstraint(Constraint constraint) {

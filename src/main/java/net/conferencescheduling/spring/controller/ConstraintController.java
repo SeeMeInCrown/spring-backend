@@ -15,7 +15,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/author")
+@CrossOrigin(origins = "http://localhost:8080")
+@RequestMapping("/constraint")
 public class ConstraintController {
     @Autowired
     private ModelMapper modelMapper;
@@ -56,7 +57,7 @@ public class ConstraintController {
         // convert entity to DTO
         ConstraintDto constraintResponse = modelMapper.map(constraint, ConstraintDto.class);
 
-        return new ResponseEntity<ConstraintDto>(constraintResponse, HttpStatus.CREATED);
+        return new ResponseEntity<>(constraintResponse, HttpStatus.CREATED);
     }
 
     // change the request for DTO

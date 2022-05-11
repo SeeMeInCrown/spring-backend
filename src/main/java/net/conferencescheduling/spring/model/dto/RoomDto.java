@@ -8,5 +8,5 @@ public class RoomDto {
 
     private int roomNo;
     private int roomCount;
-    private Constraint constraint;
+    //private ConstraintDto constraint;
 }
