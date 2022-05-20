@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -30,5 +30,5 @@ public class Presenter {
     @JsonManagedReference
     @JsonIgnore
     @OneToMany(mappedBy = "presenter",cascade = CascadeType.ALL)
-    private Set<Paper> papers = new HashSet<>();
+    private List<Paper> papers = new ArrayList<>();
 }

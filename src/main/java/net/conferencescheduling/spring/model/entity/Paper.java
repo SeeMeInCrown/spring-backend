@@ -2,9 +2,8 @@ package net.conferencescheduling.spring.model.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import javax.persistence.*;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -21,33 +20,39 @@ public class Paper {
     private Long id;
 
     @JsonBackReference
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "paper_author",
+            joinColumns = @JoinColumn(name = "paper_id"),
+            inverseJoinColumns = @JoinColumn(name = "author_id"))
+    private List<Author> authors= new ArrayList<>();
+
+    @JsonBackReference
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "paper_author", joinColumns = @JoinColumn(name = "paper_id"),inverseJoinColumns = @JoinColumn(name = "author_id"))
-    private Set<Author> authors=new HashSet<>();
+    @JoinTable(name = "paper_keyword",
+            joinColumns = @JoinColumn(name = "paper_id"),
+            inverseJoinColumns = @JoinColumn(name = "keyword_id"))
+    private List<Keyword> keywords= new ArrayList<>();
 
     @JsonBackReference
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "const_id")
-    Constraint constraint;
-
-    @JsonBackReference
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "presenter_id")
+    @JoinColumn(name = "presenter_id", referencedColumnName = "id")
     Presenter presenter;
+
+    @JsonBackReference
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "const_id", referencedColumnName = "id")
+    ConstraintDto constraint;
 
     @Column(name = "title")
     private String title;
-
-    @Column(name = "keyword")
-    private String keyword;
 
 
     public void assignAuthor(Author author) {
         authors.add(author);
     }
 
-    public void assignConstraint(Constraint constraint) {
-        this.constraint=constraint;
+    public void assignKeyword(Keyword keyword) {
+        keywords.add(keyword);
     }
 
     public void assignPresenter(Presenter presenter) {

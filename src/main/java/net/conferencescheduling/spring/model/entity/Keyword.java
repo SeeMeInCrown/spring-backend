@@ -1,17 +1,21 @@
 package net.conferencescheduling.spring.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name="room")
-public class Room {
+@Table(name="keyword")
+public class Keyword {
 
     @Id
     @Column(name = "id")
@@ -19,19 +23,13 @@ public class Room {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "seq_gen")
     private Long id;
 
-    @Column(name = "room_no")
-    private int roomNo;
+    @Column(name = "keyword")
+    private String keyword;
 
-    @Column(name = "room_count")
-    private int roomCount;
+    @JsonManagedReference
+    @JsonIgnore
+    @ManyToMany(mappedBy = "keywords",cascade = CascadeType.ALL)
+    private List<Paper> papers= new ArrayList<>();
 
-    @JsonBackReference
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "const_id")
-    Constraint constraint;
-
-    public void assignConstraint(Constraint constraint) {
-        this.constraint=constraint;
-    }
 
 }

@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class PresenterDto {
+public class KeywordDto {
 
-    private String name;
-    private String surname;
+    private String keyword;
     //private List<PaperDto> papers= new ArrayList<>();
+
 }

@@ -28,9 +28,16 @@ public class PaperController {
 
     @GetMapping("/getAll")
     public ResponseEntity<List<PaperDto>> getAllPapers() {
+        try {
+            List<PaperDto> papers = paperService.getAllPapers().stream().map(paper -> modelMapper.map(paper, PaperDto.class)).toList();
+            if (papers.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return ResponseEntity.ok(papers);
 
-        List<PaperDto> papers= paperService.getAllPapers().stream().map(paper -> modelMapper.map(paper, PaperDto.class)).toList();
-        return ResponseEntity.ok(papers);
+        }catch (Exception e){
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @GetMapping("/getById/{id}")
@@ -42,7 +49,6 @@ public class PaperController {
 
         return ResponseEntity.ok().body(paperResponse);
     }
-
 
     @PostMapping("/create")
     public ResponseEntity<PaperDto> createPaper(@RequestBody PaperDto paperDto) {
@@ -57,6 +63,15 @@ public class PaperController {
         PaperDto paperResponse = modelMapper.map(paper, PaperDto.class);
 
         return new ResponseEntity<>(paperResponse, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/deleteById/{id}")
+    public ResponseEntity<PaperDto> deletePaper(@PathVariable(name = "id") Long id) throws Exception {
+
+
+        Paper paper= paperService.deleteById(id);
+        PaperDto paperResponse = modelMapper.map(paper, PaperDto.class);
+        return ResponseEntity.ok().body(paperResponse);
     }
 
     // change the request for DTO
@@ -75,6 +90,16 @@ public class PaperController {
         return ResponseEntity.ok().body(paperResponse);
     }
 
+    @DeleteMapping("/deleteAll")
+    public ResponseEntity<HttpStatus> deleteAllPapers() {
+        try {
+            paperService.deleteAllPapers();
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @PutMapping("/{paperId}/authors/{authorId}")
     public ResponseEntity<PaperDto> assignAuthorToPaper(@PathVariable Long paperId, @PathVariable Long authorId) {
         Paper paper = paperService.assignAuthorToPaper(paperId,authorId);
@@ -85,9 +110,9 @@ public class PaperController {
 
     }
 
-    @PutMapping("/{paperId}/constraint/{constId}")
-    public ResponseEntity<PaperDto> assignConstraintToPaper(@PathVariable Long paperId, @PathVariable Long constId) {
-        Paper paper = paperService.assignConstraintToPaper(paperId,constId);
+    @PutMapping("/{paperId}/keyword/{keywordId}")
+    public ResponseEntity<PaperDto> assignKeywordToPaper(@PathVariable Long paperId, @PathVariable Long keywordId) {
+        Paper paper = paperService.assignKeywordToPaper(paperId,keywordId);
 
         PaperDto paperResponse = modelMapper.map(paper, PaperDto.class);
 

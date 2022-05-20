@@ -1,0 +1,46 @@
+package net.conferencescheduling.spring.model.entity;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Entity
+@Table(name="presentation")
+public class Presentation {
+    @Id
+    @Column(name = "id")
+    //@SequenceGenerator(name="presenter_seq_gen",sequenceName = "presenter_gen",initialValue = 100,allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "seq_gen")
+    private Long id;
+
+    @Column(name = "day_no")
+    private int dayNo;
+
+    @Column(name = "session_no")
+    private int sessionNo;
+
+    @Column(name = "start_time", columnDefinition = "TIME")
+    private LocalTime start_time;
+
+    @Column(name = "end_time", columnDefinition = "TIME")
+    private LocalTime end_time;
+
+    @Column(name = "room_no")
+    private int roomNo;
+
+    @JsonBackReference
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "paper_id", referencedColumnName = "id")
+    Paper paper;
+
+}

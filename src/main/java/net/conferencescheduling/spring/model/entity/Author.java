@@ -7,7 +7,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -30,8 +32,8 @@ public class Author {
 
     @JsonManagedReference
     @JsonIgnore
-    @ManyToMany(mappedBy = "authors",cascade = CascadeType.ALL)
-    private Set<Paper> papers=new HashSet<>();
+    @ManyToMany(mappedBy = "authors",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Paper> papers= new ArrayList<>();
 
 
 }
