@@ -100,35 +100,35 @@ public class PaperController {
         }
     }
 
-    @PutMapping("/{paperId}/authors/{authorId}")
-    public ResponseEntity<PaperDto> assignAuthorToPaper(@PathVariable Long paperId, @PathVariable Long authorId) {
-        Paper paper = paperService.assignAuthorToPaper(paperId,authorId);
-
-        PaperDto paperResponse = modelMapper.map(paper, PaperDto.class);
-
-        return ResponseEntity.ok().body(paperResponse);
-
-    }
-
-    @PutMapping("/{paperId}/keyword/{keywordId}")
-    public ResponseEntity<PaperDto> assignKeywordToPaper(@PathVariable Long paperId, @PathVariable Long keywordId) {
-        Paper paper = paperService.assignKeywordToPaper(paperId,keywordId);
-
-        PaperDto paperResponse = modelMapper.map(paper, PaperDto.class);
-
-        return ResponseEntity.ok().body(paperResponse);
-
-    }
-
-    @PutMapping("/{paperId}/presenter/{presenterId}")
-    public ResponseEntity<PaperDto> assignPresenterToPaper(@PathVariable Long paperId, @PathVariable Long presenterId) {
-        Paper paper = paperService.assignPresenterToPaper(paperId,presenterId);
-
-        PaperDto paperResponse = modelMapper.map(paper, PaperDto.class);
-
-        return ResponseEntity.ok().body(paperResponse);
-
-    }
+//    @PutMapping("/{paperId}/authors/{authorId}")
+//    public ResponseEntity<PaperDto> assignAuthorToPaper(@PathVariable Long paperId, @PathVariable Long authorId) {
+//        Paper paper = paperService.assignAuthorToPaper(paperId,authorId);
+//
+//        PaperDto paperResponse = modelMapper.map(paper, PaperDto.class);
+//
+//        return ResponseEntity.ok().body(paperResponse);
+//
+//    }
+//
+//    @PutMapping("/{paperId}/keyword/{keywordId}")
+//    public ResponseEntity<PaperDto> assignKeywordToPaper(@PathVariable Long paperId, @PathVariable Long keywordId) {
+//        Paper paper = paperService.assignKeywordToPaper(paperId,keywordId);
+//
+//        PaperDto paperResponse = modelMapper.map(paper, PaperDto.class);
+//
+//        return ResponseEntity.ok().body(paperResponse);
+//
+//    }
+//
+//    @PutMapping("/{paperId}/presenter/{presenterId}")
+//    public ResponseEntity<PaperDto> assignPresenterToPaper(@PathVariable Long paperId, @PathVariable Long presenterId) {
+//        Paper paper = paperService.assignPresenterToPaper(paperId,presenterId);
+//
+//        PaperDto paperResponse = modelMapper.map(paper, PaperDto.class);
+//
+//        return ResponseEntity.ok().body(paperResponse);
+//
+//    }
 
 
 }

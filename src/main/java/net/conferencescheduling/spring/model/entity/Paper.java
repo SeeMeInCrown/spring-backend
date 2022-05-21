@@ -19,43 +19,53 @@ public class Paper {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "seq_gen")
     private Long id;
 
-    @JsonBackReference
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(name = "paper_author",
-            joinColumns = @JoinColumn(name = "paper_id"),
-            inverseJoinColumns = @JoinColumn(name = "author_id"))
-    private List<Author> authors= new ArrayList<>();
+//    @JsonBackReference
+//    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @JoinTable(name = "paper_author",
+//            joinColumns = @JoinColumn(name = "paper_id"),
+//            inverseJoinColumns = @JoinColumn(name = "author_id"))
+//    private List<Author> authors= new ArrayList<>();
+//
+//    @JsonBackReference
+//    @ManyToMany(cascade = CascadeType.ALL)
+//    @JoinTable(name = "paper_keyword",
+//            joinColumns = @JoinColumn(name = "paper_id"),
+//            inverseJoinColumns = @JoinColumn(name = "keyword_id"))
+//    private List<Keyword> keywords= new ArrayList<>();
+//
+//    @JsonBackReference
+//    @ManyToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "presenter_id", referencedColumnName = "id")
+//    Presenter presenter;
 
-    @JsonBackReference
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "paper_keyword",
-            joinColumns = @JoinColumn(name = "paper_id"),
-            inverseJoinColumns = @JoinColumn(name = "keyword_id"))
-    private List<Keyword> keywords= new ArrayList<>();
-
-    @JsonBackReference
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "presenter_id", referencedColumnName = "id")
-    Presenter presenter;
-
-    @JsonBackReference
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "const_id", referencedColumnName = "id")
-    ConstraintDto constraint;
+//    @JsonBackReference
+//    @ManyToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "const_id", referencedColumnName = "id")
+//    Constraint constraint;
 
     @Column(name = "title")
     private String title;
 
+    @Column(name = "author")
+    private String author;
 
-    public void assignAuthor(Author author) {
-        authors.add(author);
-    }
+    @Column(name = "presenter")
+    private String presenter;
 
-    public void assignKeyword(Keyword keyword) {
-        keywords.add(keyword);
-    }
+    @Column(name = "keyword")
+    private String keyword;
 
-    public void assignPresenter(Presenter presenter) {
-        this.presenter=presenter;
-    }
+
+
+//    public void assignAuthor(Author author) {
+//        authors.add(author);
+//    }
+//
+//    public void assignKeyword(Keyword keyword) {
+//        keywords.add(keyword);
+//    }
+//
+//    public void assignPresenter(Presenter presenter) {
+//        this.presenter=presenter;
+//    }
 }

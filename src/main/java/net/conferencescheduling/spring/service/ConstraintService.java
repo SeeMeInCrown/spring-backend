@@ -1,10 +1,8 @@
 package net.conferencescheduling.spring.service;
 
-import net.conferencescheduling.spring.model.dto.KeywordDto;
-import net.conferencescheduling.spring.model.dto.PresentationDto;
-import net.conferencescheduling.spring.model.entity.ConstraintDto;
+import net.conferencescheduling.spring.model.dto.ConstraintDto;
+import net.conferencescheduling.spring.model.entity.Constraint;
 import net.conferencescheduling.spring.repository.ConstraintRepository;
-import org.hibernate.mapping.Constraint;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +21,7 @@ public class ConstraintService{
         this.constraintRepository = constraintRepository;
     }
 
-    public ConstraintDto createConstraint(ConstraintDto constraint) {
+    public Constraint createConstraint(Constraint constraint) {
         return constraintRepository.save(constraint);
     }
 

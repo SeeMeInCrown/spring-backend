@@ -1,12 +1,13 @@
 package net.conferencescheduling.spring.service;
 
-import com.opencsv.CSVReader;
 import com.opencsv.bean.*;
-import net.conferencescheduling.spring.model.entity.ConstraintDto;
+import net.conferencescheduling.spring.model.dto.ConstraintDto;
+import net.conferencescheduling.spring.model.dto.PaperDto;
+import net.conferencescheduling.spring.model.dto.PresentationDto;
+import net.conferencescheduling.spring.model.entity.Paper;
 import net.conferencescheduling.spring.model.entity.Presentation;
-import net.conferencescheduling.spring.repository.ConstraintRepository;
 import net.conferencescheduling.spring.repository.PresentationRepository;
-import org.apache.commons.collections.bag.SynchronizedSortedBag;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,14 +21,20 @@ public class PresentationService {
     private final PresentationRepository presentationRepository;
 
     @Autowired
+    private ModelMapper modelMapper;
+
+    @Autowired
     private ConstraintService constraintService;
+
+    @Autowired
+    private PaperService paperService;
 
     @Autowired
     public PresentationService(PresentationRepository presentationRepository) {
         this.presentationRepository = presentationRepository;
     }
 
-    public List<Presentation> getAllPresentations() {
+    public List<PresentationDto> getAllPresentations() {
         final String csv_location = "presentation.csv";
         try {
             FileWriter writer = new
@@ -40,7 +47,7 @@ public class PresentationService {
 
             String[] columns = new String[]
                     {"dayNo", "parallelSessionCount", "sessionCount", "startTime",
-                            "endTime", "sessionDuration", "presentationDuration", "papers"};
+                            "endTime", "sessionDuration", "presentationDuration"};
             mappingStrategy.setColumnMapping(columns);
 
             StatefulBeanToCsvBuilder<ConstraintDto> builder =
@@ -59,29 +66,66 @@ public class PresentationService {
 
         //TODO ------------------------------------------------------------------------
 
-        Reader reader = null;
+        final String papers_location = "papers.csv";
         try {
-            reader = new BufferedReader(new FileReader("presentation.csv"));
+            FileWriter writer = new
+                    FileWriter(papers_location);
+            List<PaperDto> papers = paperService.getAllPapers().stream().map(paper -> modelMapper.map(paper, PaperDto.class)).toList();
+
+            ColumnPositionMappingStrategy mapping =
+                    new ColumnPositionMappingStrategy();
+            mapping.setType(PaperDto.class);
+
+            StatefulBeanToCsvBuilder<ConstraintDto> builder =
+                    new StatefulBeanToCsvBuilder(writer);
+            StatefulBeanToCsv beanWriter =
+                    builder.build();
+
+            beanWriter.write(papers);
+
+            //TODO CALL PYTHON SCRIPT and write to new csv
+
+            writer.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+//        Map<String, String> columnMappings = Map.of(
+//                "dayNo", "dayNo",
+//                "sessionNo", "sessionNo",
+//                "start_time", "start_time",
+//                "end_time", "end_time",
+//                "roomNo", "roomNo"
+//        );
+
+//        HeaderColumnNameTranslateMappingStrategy mappingStrategy =
+//                new HeaderColumnNameTranslateMappingStrategy();
+//        mappingStrategy.setColumnMapping(columnMappings);
+//        mappingStrategy.setType(PresentationDto.class);
+
+
+        CsvToBean csvReader = null;
+        try {
+            csvReader = new CsvToBeanBuilder(new FileReader("result.csv"))
+                    .withType(PresentationDto.class)
+                    //.withMappingStrategy(mappingStrategy)
+                    .build();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
-        CsvToBean csvReader = new CsvToBeanBuilder(reader)
-                .withType(ConstraintDto.class)
-                .withSeparator(',')
-                .withIgnoreLeadingWhiteSpace(true)
-                .withIgnoreEmptyLine(true)
-                .build();
-
-        List<ConstraintDto> results = csvReader.parse();
+        List<PresentationDto> results = csvReader.parse();
         System.out.println(results);
 
-        //TODO presentationRepository.saveAll(resultlist);
+        //Stream<PresentationDto> stream = csvReader.stream().map(presentation -> modelMapper.map(presentation, PresentationDto.class));
 
-        return presentationRepository.findAll();
+        //presentationRepository.save(stream);
+        return results;
+        //return presentationRepository.findAll();
     }
 
-    //sending contraints to python and get the results
     public Presentation createPresentation(Presentation presentation) {
 
         return presentationRepository.save(presentation);

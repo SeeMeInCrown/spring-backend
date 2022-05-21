@@ -16,7 +16,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name="constraintt")
-public class ConstraintDto {
+public class Constraint {
     @Id
     //@SequenceGenerator(name="seq_gen",sequenceName = "seq_gen",initialValue = 100,allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "seq_gen")
@@ -44,10 +44,10 @@ public class ConstraintDto {
     @Column(name = "presentation_duration", columnDefinition = "TIME")
     private LocalTime presentationDuration;
 
-    @JsonManagedReference
-    @JsonIgnore
-    @OneToMany(mappedBy = "constraint",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Paper> papers= new ArrayList<>();
+//    @JsonManagedReference
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "constraint",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private List<Paper> papers= new ArrayList<>();
 
 
 }

@@ -1,9 +1,7 @@
 package net.conferencescheduling.spring;
 
-import net.conferencescheduling.spring.model.entity.Presenter;
-import net.conferencescheduling.spring.repository.PresenterRepository;
+
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -28,5 +28,9 @@ public class ConstraintDto {
     @JsonFormat(pattern = "HH:mm", timezone="GMT+3")
     private LocalTime presentationDuration;
 
-    List<PaperDto> papers = new ArrayList<>();
+//    private int startTime;
+//    private int endTime;
+//    private int sessionDuration;
+//    private int presentationDuration;
+    //List<PaperDto> papers = new ArrayList<>();
 }

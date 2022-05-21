@@ -1,6 +1,6 @@
 package net.conferencescheduling.spring.controller;
 
-import net.conferencescheduling.spring.model.entity.ConstraintDto;
+import net.conferencescheduling.spring.model.entity.Constraint;
 import net.conferencescheduling.spring.service.ConstraintService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.*;
@@ -22,9 +22,9 @@ public class ConstraintController {
     @PostMapping("/create")
     public ResponseEntity<net.conferencescheduling.spring.model.dto.ConstraintDto> createConstraint(@RequestBody net.conferencescheduling.spring.model.dto.ConstraintDto constraintDto) {
 
-        ConstraintDto constraintRequest = modelMapper.map(constraintDto, ConstraintDto.class);
+        Constraint constraintRequest = modelMapper.map(constraintDto, Constraint.class);
 
-        ConstraintDto constraint = constraintService.createConstraint(constraintRequest);
+        Constraint constraint = constraintService.createConstraint(constraintRequest);
 
         // convert entity to DTO
         net.conferencescheduling.spring.model.dto.ConstraintDto constraintResponse = modelMapper.map(constraint, net.conferencescheduling.spring.model.dto.ConstraintDto.class);

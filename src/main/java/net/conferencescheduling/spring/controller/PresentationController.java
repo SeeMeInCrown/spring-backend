@@ -29,7 +29,8 @@ public class PresentationController {
     @GetMapping("/getAll")
     public ResponseEntity<List<PresentationDto>> getAllPresentations() {
 
-        List<PresentationDto> presentations= presentationService.getAllPresentations().stream().map(presentation -> modelMapper.map(presentation, PresentationDto.class)).toList();
+        //List<PresentationDto> presentations= presentationService.getAllPresentations().stream().map(presentation -> modelMapper.map(presentation, PresentationDto.class)).toList();
+        List<PresentationDto> presentations= presentationService.getAllPresentations();
         return ResponseEntity.ok(presentations);
     }
 
