@@ -38,7 +38,7 @@ public class Presentation {
     @Column(name = "room_no")
     private int roomNo;
 
-    @JsonBackReference
+    //@JsonBackReference
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "paper_id", referencedColumnName = "id")
     Paper paper;

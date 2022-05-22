@@ -2,12 +2,7 @@ package net.conferencescheduling.spring.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-
-
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
-
 
 @Data
 public class ConstraintDto {
@@ -32,5 +27,4 @@ public class ConstraintDto {
 //    private int endTime;
 //    private int sessionDuration;
 //    private int presentationDuration;
-    //List<PaperDto> papers = new ArrayList<>();
 }

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8080")
 @RequestMapping("/paper")
 public class PaperController {
     @Autowired
@@ -44,7 +43,6 @@ public class PaperController {
     public ResponseEntity<PaperDto> getPaperById(@PathVariable(name = "id") Long id) {
         Paper paper = paperService.getPaperById(id);
 
-        // convert entity to DTO
         PaperDto paperResponse = modelMapper.map(paper, PaperDto.class);
 
         return ResponseEntity.ok().body(paperResponse);
@@ -53,13 +51,10 @@ public class PaperController {
     @PostMapping("/create")
     public ResponseEntity<PaperDto> createPaper(@RequestBody PaperDto paperDto) {
 
-
-        // convert DTO to entity
         Paper paperRequest = modelMapper.map(paperDto, Paper.class);
 
         Paper paper = paperService.createPaper(paperRequest);
 
-        // convert entity to DTO
         PaperDto paperResponse = modelMapper.map(paper, PaperDto.class);
 
         return new ResponseEntity<>(paperResponse, HttpStatus.CREATED);
@@ -74,17 +69,20 @@ public class PaperController {
         return ResponseEntity.ok().body(paperResponse);
     }
 
-    // change the request for DTO
-    // change the response for DTO
+    @DeleteMapping("/deleteByTitle/{title}")
+    public ResponseEntity<PaperDto> deletePaperByTitle(@PathVariable(name = "title") String title) throws Exception {
+        Paper paper= paperService.deleteByTitle(title);
+        PaperDto paperResponse = modelMapper.map(paper, PaperDto.class);
+        return ResponseEntity.ok().body(paperResponse);
+    }
+
     @PutMapping("/edit/{id}")
     public ResponseEntity<PaperDto> updatePaper(@PathVariable Long id, @RequestBody PaperDto paperDto) {
 
-        // convert DTO to Entity
         Paper paperRequest = modelMapper.map(paperDto, Paper.class);
 
         Paper paper = paperService.updatePaper(id, paperRequest);
 
-        // entity to DTO
         PaperDto paperResponse = modelMapper.map(paper, PaperDto.class);
 
         return ResponseEntity.ok().body(paperResponse);

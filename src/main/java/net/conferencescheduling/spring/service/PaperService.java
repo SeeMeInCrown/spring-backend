@@ -72,7 +72,6 @@ public class PaperService{
         paper.setTitle(paperRequest.getTitle());
         paper.setKeyword(paperRequest.getKeyword());
         paper.setAuthor(paperRequest.getAuthor());
-        paper.setConstraint(paperRequest.getConstraint());
         paper.setPresenter(paperRequest.getPresenter());
         return paperRepository.save(paper);
     }
@@ -93,6 +92,13 @@ public class PaperService{
             throw new Exception("Not found Tutorial with id = " + paperId);
         }
         paperRepository.deleteById(paperId);
+        return null;
+    }
+    public Paper deleteByTitle(String title) throws Exception {
+        if (!paperRepository.existsByTitle(title)) {
+            throw new Exception("Not found Tutorial with title = " + title);
+        }
+        paperRepository.deleteByTitle(title);
         return null;
     }
 
