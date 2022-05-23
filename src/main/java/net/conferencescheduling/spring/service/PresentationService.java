@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
@@ -34,7 +35,7 @@ public class PresentationService {
         this.presentationRepository = presentationRepository;
     }
 
-    public List<PresentationDto> getAllPresentations() {
+    public List<Presentation> getAllPresentations() {
         final String csv_location = "presentation.csv";
         try {
             FileWriter writer = new
@@ -46,8 +47,8 @@ public class PresentationService {
             mappingStrategy.setType(ConstraintDto.class);
 
             String[] columns = new String[]
-                    {"dayNo", "parallelSessionCount", "sessionCount", "startTime",
-                            "endTime", "sessionDuration", "presentationDuration"};
+                    {"dayNo", "parallelSessionCount","presentationDuration","sessionNo",
+                            "startTime", "endTime" };
             mappingStrategy.setColumnMapping(columns);
 
             StatefulBeanToCsvBuilder<ConstraintDto> builder =
@@ -119,11 +120,13 @@ public class PresentationService {
         List<PresentationDto> results = csvReader.parse();
         System.out.println(results);
 
-        //Stream<PresentationDto> stream = csvReader.stream().map(presentation -> modelMapper.map(presentation, PresentationDto.class));
-
-        //presentationRepository.save(stream);
-        return results;
-        //return presentationRepository.findAll();
+        List<Presentation> lists = results
+                .stream()
+                .map(user -> modelMapper.map(user, Presentation.class))
+                .collect(Collectors.toList());
+        presentationRepository.saveAll(lists);
+        //return results;
+        return presentationRepository.findAll();
     }
 
     public Presentation createPresentation(Presentation presentation) {

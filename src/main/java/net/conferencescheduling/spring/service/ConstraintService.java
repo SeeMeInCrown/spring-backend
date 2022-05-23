@@ -29,4 +29,8 @@ public class ConstraintService{
 
         return constraintRepository.findAll().stream().map(constraint -> modelMapper.map(constraint, ConstraintDto.class)).toList();
     }
+
+    public void deleteAllConstraints() {
+        constraintRepository.deleteAll();
+    }
 }

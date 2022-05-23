@@ -31,4 +31,13 @@ public class ConstraintController {
         return new ResponseEntity<>(constraintResponse, HttpStatus.CREATED);
     }
 
+    @DeleteMapping("/deleteAll")
+    public ResponseEntity<HttpStatus> deleteAllPapers() {
+        try {
+            constraintService.deleteAllConstraints();
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

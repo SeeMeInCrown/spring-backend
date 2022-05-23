@@ -29,20 +29,18 @@ public class Constraint {
     @Column(name = "parallel_session_count")
     private int parallelSessionCount;
 
-    @Column(name = "session_count")
-    private int sessionCount;
+    @Column(name = "presentation_duration")
+    private String presentationDuration;
 
-    @Column(name = "start_time", columnDefinition = "TIME")
-    private LocalTime startTime;
+    @Column(name = "session_no")
+    private int sessionNo;
 
-    @Column(name = "end_time", columnDefinition = "TIME")
-    private LocalTime endTime;
+    @Column(name = "start_time")
+    private String startTime;
 
-    @Column(name = "session_duration", columnDefinition = "TIME")
-    private LocalTime sessionDuration;
+    @Column(name = "end_time")
+    private String endTime;
 
-    @Column(name = "presentation_duration", columnDefinition = "TIME")
-    private LocalTime presentationDuration;
 
 //    @JsonManagedReference
 //    @JsonIgnore
