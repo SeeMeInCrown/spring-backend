@@ -23,24 +23,30 @@ public class Presentation {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "seq_gen")
     private Long id;
 
+    @Column(name = "title")
+    private String title;
+
+    @Column(name = "presenter")
+    private String presenter;
+
     @Column(name = "day_no")
     private int dayNo;
 
     @Column(name = "session_no")
     private int sessionNo;
 
-    @Column(name = "start_time", columnDefinition = "TIME")
-    private LocalTime start_time;
+    @Column(name = "start_time")
+    private String start_time;
 
-    @Column(name = "end_time", columnDefinition = "TIME")
-    private LocalTime end_time;
+    @Column(name = "end_time")
+    private String end_time;
 
     @Column(name = "room_no")
     private int roomNo;
 
     //@JsonBackReference
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "paper_id", referencedColumnName = "id")
-    Paper paper;
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "paper_id", referencedColumnName = "id")
+//    Paper paper;
 
 }

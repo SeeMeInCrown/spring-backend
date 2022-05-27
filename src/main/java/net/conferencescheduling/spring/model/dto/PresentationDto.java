@@ -9,23 +9,20 @@ import java.time.LocalTime;
 @Data
 public class PresentationDto {
 
+
     @CsvBindByPosition(position = 0)
     private int dayNo;
     @CsvBindByPosition(position = 1)
     private int sessionNo;
-//    @CsvBindByPosition(position = 2)
-//    @JsonFormat(pattern = "HH:mm", timezone="GMT+3")
-//    private LocalTime start_time;
-//    @CsvBindByPosition(position = 3)
-//    @JsonFormat(pattern = "HH:mm", timezone="GMT+3")
-//    private LocalTime end_time;
     @CsvBindByPosition(position = 2)
     private String start_time;
     @CsvBindByPosition(position = 3)
     private String end_time;
     @CsvBindByPosition(position = 4)
     private int roomNo;
-
-    //private Paper paper;
+    @CsvBindByPosition(position = 5)
+    private String title;
+    @CsvBindByPosition(position = 6)
+    private String presenter;
 
 }
