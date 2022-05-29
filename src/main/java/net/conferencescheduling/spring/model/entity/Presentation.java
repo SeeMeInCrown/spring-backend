@@ -45,7 +45,7 @@ public class Presentation {
     private String end_time;
 
     @Column(name = "keywords")
-    private int keywords;
+    private String keywords;
 
     //@JsonBackReference
 //    @OneToOne(cascade = CascadeType.ALL)

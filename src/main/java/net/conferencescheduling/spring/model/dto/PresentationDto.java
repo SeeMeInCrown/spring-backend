@@ -21,7 +21,7 @@ public class PresentationDto {
     @CsvBindByPosition(position = 4)
     private String title;
     @CsvBindByPosition(position = 5)
-    private String keyword;
+    private String keywords;
     @CsvBindByPosition(position = 6)
     private String start_time;
     @CsvBindByPosition(position = 7)

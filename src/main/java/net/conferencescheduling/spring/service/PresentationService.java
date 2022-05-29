@@ -36,6 +36,26 @@ public class PresentationService {
     }
 
     public List<Presentation> getAllPresentations() {
+
+//        Map<String, String> columnMappings = Map.of(
+//                "dayNo", "dayNo",
+//                "sessionNo", "sessionNo",
+//                "start_time", "start_time",
+//                "end_time", "end_time",
+//                "roomNo", "roomNo"
+//        );
+
+//        HeaderColumnNameTranslateMappingStrategy mappingStrategy =
+//                new HeaderColumnNameTranslateMappingStrategy();
+//        mappingStrategy.setColumnMapping(columnMappings);
+//        mappingStrategy.setType(PresentationDto.class);
+
+        //System.out.println(results);
+        return presentationRepository.findAll();
+        //return results;
+    }
+
+    public List<Presentation> createPresentation() {
         final String csv_location = "constraints.csv";
         try {
             FileWriter writer = new
@@ -87,19 +107,6 @@ public class PresentationService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-//        Map<String, String> columnMappings = Map.of(
-//                "dayNo", "dayNo",
-//                "sessionNo", "sessionNo",
-//                "start_time", "start_time",
-//                "end_time", "end_time",
-//                "roomNo", "roomNo"
-//        );
-
-//        HeaderColumnNameTranslateMappingStrategy mappingStrategy =
-//                new HeaderColumnNameTranslateMappingStrategy();
-//        mappingStrategy.setColumnMapping(columnMappings);
-//        mappingStrategy.setType(PresentationDto.class);
-
 
         CsvToBean csvReader = null;
         try {
@@ -118,15 +125,8 @@ public class PresentationService {
                 .stream()
                 .map(user -> modelMapper.map(user, Presentation.class))
                 .collect(Collectors.toList());
-        presentationRepository.saveAll(lists);
-        System.out.println(lists);
-        return presentationRepository.findAll();
-        //return results;
-    }
 
-    public Presentation createPresentation(Presentation presentation) {
-
-        return presentationRepository.save(presentation);
+        return presentationRepository.saveAll(lists);
     }
 
 //    public Presentation updatePresentation(Long id, Presentation presentationRequest) {

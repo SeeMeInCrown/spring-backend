@@ -47,17 +47,13 @@ public class PresentationController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<PresentationDto> createPresentation(@RequestBody PresentationDto presentationDto) {
+    public ResponseEntity<List<PresentationDto>> createPresentation() {
 
-        // convert DTO to entity
-        Presentation presentationRequest = modelMapper.map(presentationDto, Presentation.class);
+        List<PresentationDto> presentations= presentationService.createPresentation().
+                stream().map(presentation -> modelMapper.map(presentation, PresentationDto.class)).toList();
+        //List<PresentationDto> presentations= presentationService.getAllPresentations();
 
-        Presentation presentation = presentationService.createPresentation(presentationRequest);
-
-        // convert entity to DTO
-        PresentationDto presentationResponse = modelMapper.map(presentation, PresentationDto.class);
-
-        return new ResponseEntity<>(presentationResponse, HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @DeleteMapping("/deleteAll")
