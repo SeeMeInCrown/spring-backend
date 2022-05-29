@@ -1,6 +1,8 @@
 package net.conferencescheduling.spring.controller;
 
+import net.conferencescheduling.spring.model.dto.PaperDto;
 import net.conferencescheduling.spring.model.dto.PresentationDto;
+import net.conferencescheduling.spring.model.entity.Paper;
 import net.conferencescheduling.spring.model.entity.Presentation;
 import net.conferencescheduling.spring.service.PresentationService;
 import org.modelmapper.ModelMapper;
@@ -58,21 +60,14 @@ public class PresentationController {
         return new ResponseEntity<>(presentationResponse, HttpStatus.CREATED);
     }
 
-    // change the request for DTO
-    // change the response for DTO
-//    @PutMapping("/edit/{id}")
-//    public ResponseEntity<SessionDto> updateSession(@PathVariable Long id, @RequestBody SessionDto sessionDto) {
-//
-//        // convert DTO to Entity
-//        Session roomRequest = modelMapper.map(sessionDto, Session.class);
-//
-//        Session session = sessionService.updateSession(id, roomRequest);
-//
-//        // entity to DTO
-//        SessionDto sessionResponse = modelMapper.map(session, SessionDto.class);
-//
-//        return ResponseEntity.ok().body(sessionResponse);
-//    }
-
+    @DeleteMapping("/deleteAll")
+    public ResponseEntity<HttpStatus> deleteAllPresentations() {
+        try {
+            presentationService.deleteAllPresentations();
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 }

@@ -9,15 +9,11 @@ public class ConstraintDto {
 
     private int dayNo;
     private int parallelSessionCount;
+    private int presentationDuration;
+    private int sessionDuration;
     private int sessionNo;
-
-    //@JsonFormat(pattern = "HH:mm", timezone="GMT+3")
     private String startTime;
-
-    //@JsonFormat(pattern = "HH:mm", timezone="GMT+3")
     private String endTime;
 
-    //@JsonFormat(pattern = "HH:mm", timezone="GMT+3")
-    private String presentationDuration;
 
 }

@@ -47,8 +47,8 @@ public class PresentationService {
             mappingStrategy.setType(ConstraintDto.class);
 
             String[] columns = new String[]
-                    {"dayNo", "parallelSessionCount","presentationDuration","sessionNo",
-                            "startTime", "endTime" };
+                    {"dayNo", "parallelSessionCount","presentationDuration","sessionDuration",
+                            "sessionNo", "startTime", "endTime" };
             mappingStrategy.setColumnMapping(columns);
 
             StatefulBeanToCsvBuilder<ConstraintDto> builder =
@@ -57,9 +57,6 @@ public class PresentationService {
                     builder.withMappingStrategy(mappingStrategy).build();
 
             beanWriter.write(constraints);
-
-            //TODO CALL PYTHON SCRIPT and write to new csv
-
             writer.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -90,9 +87,6 @@ public class PresentationService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-
 //        Map<String, String> columnMappings = Map.of(
 //                "dayNo", "dayNo",
 //                "sessionNo", "sessionNo",
@@ -118,15 +112,16 @@ public class PresentationService {
         }
 
         List<PresentationDto> results = csvReader.parse();
-        System.out.println(results);
+
 
         List<Presentation> lists = results
                 .stream()
                 .map(user -> modelMapper.map(user, Presentation.class))
                 .collect(Collectors.toList());
         presentationRepository.saveAll(lists);
-        //return results;
+        System.out.println(lists);
         return presentationRepository.findAll();
+        //return results;
     }
 
     public Presentation createPresentation(Presentation presentation) {
@@ -156,5 +151,10 @@ public class PresentationService {
         }
 
     }
+
+    public void deleteAllPresentations() {
+        presentationRepository.deleteAll();
+    }
+
 
 }

@@ -62,8 +62,11 @@ public class PaperService{
 //        else {
 //            paper.setPresenter(presenter1);
 //        }
+        if(((paper.getPresenter().equals(""))||(paper.getKeyword().equals(""))||
+                (paper.getAuthor().equals(""))|| (paper.getTitle().equals("")))){
+            return null;
+        }
         return paperRepository.save(paper);
-
     }
 
     public Paper updatePaper(Long id, Paper paperRequest) {

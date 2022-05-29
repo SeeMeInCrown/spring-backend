@@ -15,14 +15,19 @@ public class PresentationDto {
     @CsvBindByPosition(position = 1)
     private int sessionNo;
     @CsvBindByPosition(position = 2)
-    private String start_time;
+    private String authors;
     @CsvBindByPosition(position = 3)
-    private String end_time;
-    @CsvBindByPosition(position = 4)
-    private int roomNo;
-    @CsvBindByPosition(position = 5)
-    private String title;
-    @CsvBindByPosition(position = 6)
     private String presenter;
+    @CsvBindByPosition(position = 4)
+    private String title;
+    @CsvBindByPosition(position = 5)
+    private String keyword;
+    @CsvBindByPosition(position = 6)
+    private String start_time;
+    @CsvBindByPosition(position = 7)
+    private String end_time;
+
+
+
 
 }

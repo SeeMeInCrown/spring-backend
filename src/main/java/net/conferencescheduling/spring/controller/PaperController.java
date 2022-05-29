@@ -54,7 +54,9 @@ public class PaperController {
         Paper paperRequest = modelMapper.map(paperDto, Paper.class);
 
         Paper paper = paperService.createPaper(paperRequest);
-
+        if(paper==null){
+            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+        }
         PaperDto paperResponse = modelMapper.map(paper, PaperDto.class);
 
         return new ResponseEntity<>(paperResponse, HttpStatus.CREATED);

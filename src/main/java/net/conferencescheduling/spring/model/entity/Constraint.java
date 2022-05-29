@@ -30,7 +30,10 @@ public class Constraint {
     private int parallelSessionCount;
 
     @Column(name = "presentation_duration")
-    private String presentationDuration;
+    private int presentationDuration;
+
+    @Column(name = "session_duration")
+    private int sessionDuration;
 
     @Column(name = "session_no")
     private int sessionNo;
