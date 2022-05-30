@@ -26,6 +26,8 @@ public class PresentationDto {
     private String start_time;
     @CsvBindByPosition(position = 7)
     private String end_time;
+    @CsvBindByPosition(position = 8)
+    private int parallelSessionNo;
 
 
 

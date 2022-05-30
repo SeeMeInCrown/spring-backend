@@ -29,6 +29,9 @@ public class Presentation {
     @Column(name = "session_no")
     private int sessionNo;
 
+    @Column(name = "parallel_session_no")
+    private int parallelSessionNo;
+
     @Column(name = "title")
     private String title;
 
