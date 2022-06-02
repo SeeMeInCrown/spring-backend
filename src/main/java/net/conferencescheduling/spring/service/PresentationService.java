@@ -55,7 +55,7 @@ public class PresentationService {
         //return results;
     }
 
-    public List<Presentation> createPresentation() {
+    public List<Presentation> createPresentation() throws IOException {
         final String csv_location = "constraints.csv";
         try {
             FileWriter writer = new
@@ -101,12 +101,30 @@ public class PresentationService {
 
             beanWriter.write(papers);
 
-            //TODO CALL PYTHON SCRIPT and write to new csv
 
             writer.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        //CALL PYTHON
+        String[] arguments = new String[] {"python", "conference.py", "huzhiwei", "25"};
+        try {
+            Process process = Runtime.getRuntime().exec(arguments);
+            BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String line = null;
+            while ((line = in.readLine()) != null) {
+                System.out.println(line);
+            }
+            System.out.println("test");
+            in.close();
+            int re = process.waitFor();
+            //System.out.println(re);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        //READ RESULTS
 
         CsvToBean csvReader = null;
         try {
