@@ -5,15 +5,16 @@ import lombok.Data;
 
 
 @Data
-public class PaperDto {
+public class InfoDto {
 
     @CsvBindByPosition(position = 0)
-    private String author;
+    private int dayNo;
     @CsvBindByPosition(position = 1)
-    private String presenter;
+    private String dayStart;
     @CsvBindByPosition(position = 2)
-    private String title;
+    private String dayEnd;
     @CsvBindByPosition(position = 3)
-    private String keyword;
-
+    private int sessionCount;
+    @CsvBindByPosition(position = 4)
+    private int sessionDuration;
 }

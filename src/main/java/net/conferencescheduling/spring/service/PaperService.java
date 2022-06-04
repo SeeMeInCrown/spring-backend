@@ -13,13 +13,6 @@ public class PaperService{
 
     private final PaperRepository paperRepository;
 
-//    @Autowired
-//    private AuthorRepository authorRepository;
-//    @Autowired
-//    private KeywordRepository keywordRepository;
-//    @Autowired
-//    private PresenterRepository presenterRepository;
-
     @Autowired
     public PaperService(PaperRepository paperRepository) {
         this.paperRepository = paperRepository;
