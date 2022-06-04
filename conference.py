@@ -1,13 +1,12 @@
 import csv
 
-header = ['name', 'area', 'country_code2', 'country_code3']
-data = ['Afghanistan', 652090, 'AF', 'AFG']
+data = [[1, 1, 'Berke Ayan,Meliha Buse', 'Berke Ayan', 'Intro to Robotics', 'robotics, science',
+         '10:30', '11:30', 2, ],
+        [1, 1, 'Berke Ayan,Meliha Buse', 'Berke Ayan', 'Intro to Robotics', 'robotics, science',
+         '10:30', '11:30', 2, ],
+        [1, 1, 'Berke Ayan,Meliha Buse', 'Berke Ayan', 'Intro to Robotics', 'robotics, science',
+         '10:30', '11:30', 2, ]]
 
-with open('countries.csv', 'w', encoding='UTF8') as f:
+with open('result.csv', 'w') as f:
     writer = csv.writer(f)
-
-    # write the header
-    writer.writerow(header)
-
-    # write the data
-    writer.writerow(data)
+    writer.writerows(data)

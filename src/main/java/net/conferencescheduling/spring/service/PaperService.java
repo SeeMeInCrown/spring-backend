@@ -55,8 +55,9 @@ public class PaperService{
 //        else {
 //            paper.setPresenter(presenter1);
 //        }
-        if(((paper.getPresenter().equals(""))||(paper.getKeyword().equals(""))||
-                (paper.getAuthor().equals(""))|| (paper.getTitle().equals("")))){
+        if(((paper.getKeyword().isEmpty() || (paper.getPresenter().isEmpty()) ||
+                paper.getKeyword().equals(" ") || paper.getAuthor().equals(" ") ||
+                (paper.getAuthor().isEmpty()) || (paper.getTitle().isEmpty())))){
             return null;
         }
         return paperRepository.save(paper);

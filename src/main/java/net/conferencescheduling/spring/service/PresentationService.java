@@ -145,11 +145,12 @@ public class PresentationService {
 
         List<PresentationDto> results = csvReader.parse();
 
-
+        System.out.println(results);
         List<Presentation> lists = results
                 .stream()
                 .map(user -> modelMapper.map(user, Presentation.class))
                 .collect(Collectors.toList());
+
 
         return presentationRepository.saveAll(lists);
     }
