@@ -35,15 +35,6 @@ public class PresentationController {
         return ResponseEntity.ok(presentations);
     }
 
-    @GetMapping("/getById/{id}")
-    public ResponseEntity<PresentationDto> getPresentationById(@PathVariable(name = "id") Long id) {
-        Presentation presentation = presentationService.getPresentationById(id);
-
-        // convert entity to DTO
-        PresentationDto presentationResponse = modelMapper.map(presentation, PresentationDto.class);
-
-        return ResponseEntity.ok().body(presentationResponse);
-    }
 
     @PostMapping("/create")
     public ResponseEntity<List<PresentationDto>> createPresentation() {

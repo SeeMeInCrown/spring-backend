@@ -12,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -41,7 +44,7 @@ public class PresentationService {
         return presentationRepository.findAll();
     }
 
-    public List<Presentation> createPresentation() {
+    public List<Presentation> createPresentation()  {
         final String csv_location = "constraints.csv";
         try {
             FileWriter writer = new
@@ -132,54 +135,92 @@ public class PresentationService {
         System.out.println("READING OPTIMIZATION RESULT IS STARTED!");
         //READ RESULTS
 
+
         CsvToBean csvReader = null;
-        try {
-            csvReader = new CsvToBeanBuilder(new FileReader("result.csv"))
-                    .withType(PresentationDto.class)
-                    //.withMappingStrategy(mappingStrategy)
-                    .build();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+
+        while(true){
+            if(Files.exists(Path.of("result.csv"))){
+                try {
+                    FileReader reader = new FileReader("result.csv");
+
+                 csvReader = new CsvToBeanBuilder(reader)
+                           .withType(PresentationDto.class)
+                            //.withMappingStrategy(mappingStrategy)
+                          .build();
+
+               } catch (FileNotFoundException e) {
+                 e.printStackTrace();
+               }
+
+              break;
+            }
+         }
+
         System.out.println("READING OPTIMIZATION RESULT IS DONE!");
+
 
         List<PresentationDto> results = csvReader.parse();
 
-        System.out.println(results);
+
         List<Presentation> lists = results
                 .stream()
                 .map(user -> modelMapper.map(user, Presentation.class))
                 .collect(Collectors.toList());
 
+        System.out.println(results);
+
+//        while(true) {
+//            if (Files.exists(Path.of("result.csv"))) {
+//                try {
+//                    FileReader reader = new FileReader("result.csv");
+//                    try {
+//                        reader.close();
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//
+//                } catch (FileNotFoundException e) {
+//                    e.printStackTrace();
+//                }
+//                break;
+//            }
+//        }
 
         return presentationRepository.saveAll(lists);
     }
 
-//    public Presentation updatePresentation(Long id, Presentation presentationRequest) {
-//        Presentation presentation = presentationRepository.findById(id)
-//                .orElseThrow(() -> new RuntimeException("No valid presentation!") );
-//
-//        presentation.setRoomNo(presentationRequest.getRoomNo());
-//        presentation.setSessionNo(presentationRequest.getSessionNo());
-//        presentation.setDayNo(presentationRequest.getDayNo());
-//        presentation.setStart_time(presentationRequest.getStart_time());
-//        presentation.setEnd_time(presentationRequest.getEnd_time());
-//        presentation.setPresenter(presentationRequest.getPaper());
-//        return presentationRepository.save(presentation);
-//    }
 
-    public Presentation getPresentationById(Long id) {
-        Optional<Presentation> result = presentationRepository.findById(id);
-        if(result.isPresent()) {
-            return result.get();
-        }else {
-            throw new RuntimeException("No valid presentation!");
-        }
-
-    }
 
     public void deleteAllPresentations() {
         presentationRepository.deleteAll();
+        while(true) {
+            if(Files.exists(Path.of("result.csv"))) {
+                try {
+                    FileReader reader = new FileReader("result.csv");
+
+                    try {
+                        reader.close();
+
+                        System.out.println("file closed");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    Files.delete(Path.of("result.csv"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                File myObj = new File("result.csv");
+                boolean yes= myObj.delete();
+                System.out.println(yes);
+                break;
+            }
+        }
     }
 
 
