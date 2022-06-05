@@ -127,9 +127,11 @@ public class PresentationService {
             ProcessBuilder pb = new ProcessBuilder("python",
                     "conference.py");
             Process p = pb.start();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+
 
         System.out.println("OPTIMIZATION IS DONE!");
         System.out.println("READING OPTIMIZATION RESULT IS STARTED!");
@@ -137,11 +139,12 @@ public class PresentationService {
 
 
         CsvToBean csvReader = null;
+        FileReader reader = null;
 
         while(true){
             if(Files.exists(Path.of("result.csv"))){
                 try {
-                    FileReader reader = new FileReader("result.csv");
+                    reader = new FileReader("result.csv");
 
                  csvReader = new CsvToBeanBuilder(reader)
                            .withType(PresentationDto.class)
@@ -169,22 +172,12 @@ public class PresentationService {
 
         System.out.println(results);
 
-//        while(true) {
-//            if (Files.exists(Path.of("result.csv"))) {
-//                try {
-//                    FileReader reader = new FileReader("result.csv");
-//                    try {
-//                        reader.close();
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//
-//                } catch (FileNotFoundException e) {
-//                    e.printStackTrace();
-//                }
-//                break;
-//            }
-//        }
+        try {
+            assert reader != null;
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         return presentationRepository.saveAll(lists);
     }
@@ -195,29 +188,13 @@ public class PresentationService {
         presentationRepository.deleteAll();
         while(true) {
             if(Files.exists(Path.of("result.csv"))) {
-                try {
-                    FileReader reader = new FileReader("result.csv");
-
-                    try {
-                        reader.close();
-
-                        System.out.println("file closed");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
 
                 try {
                     Files.delete(Path.of("result.csv"));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                File myObj = new File("result.csv");
-                boolean yes= myObj.delete();
-                System.out.println(yes);
+
                 break;
             }
         }
