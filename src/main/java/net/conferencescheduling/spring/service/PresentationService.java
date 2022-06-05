@@ -186,7 +186,7 @@ public class PresentationService {
 
     public void deleteAllPresentations() {
         presentationRepository.deleteAll();
-        while(true) {
+
             if(Files.exists(Path.of("result.csv"))) {
 
                 try {
@@ -194,8 +194,29 @@ public class PresentationService {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+            }
+        if(Files.exists(Path.of("constraints.csv"))) {
 
-                break;
+            try {
+                Files.delete(Path.of("constraints.csv"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        if(Files.exists(Path.of("info.csv"))) {
+
+            try {
+                Files.delete(Path.of("info.csv"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        if(Files.exists(Path.of("papers.csv"))) {
+
+            try {
+                Files.delete(Path.of("papers.csv"));
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
