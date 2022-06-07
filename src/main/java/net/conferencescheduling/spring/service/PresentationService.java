@@ -55,10 +55,6 @@ public class PresentationService {
                     new ColumnPositionMappingStrategy();
             mappingStrategy.setType(ConstraintDto.class);
 
-//            String[] columns = new String[]
-//                    {"dayNo", "parallelSessionCount","presentationDuration","sessionDuration",
-//                            "sessionNo", "startTime", "endTime" };
-//            mappingStrategy.setColumnMapping(columns);
 
             StatefulBeanToCsvBuilder<ConstraintDto> builder =
                     new StatefulBeanToCsvBuilder(writer);
