@@ -123,13 +123,22 @@ public class PresentationService {
         System.out.println("OPTIMIZATION IS INITIALIZED!");
 
         //CALL PYTHON
-        try {
-            ProcessBuilder pb = new ProcessBuilder("python",
-                    "conference.py");
-            Process p = pb.start();
+        while(true) {
+            if (Files.exists(Path.of("papers.csv")) &&
+                    Files.exists(Path.of("constraints.csv")) &&
+                    Files.exists(Path.of("info.csv"))) {
+                try {
+                    ProcessBuilder pb = new ProcessBuilder("python",
+                            "conference.py");
+                    Process p = pb.start();
+                    //Thread.sleep(180000);
+                    //p.destroy();
+                    break;
 
-        } catch (Exception e) {
-            e.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
 
